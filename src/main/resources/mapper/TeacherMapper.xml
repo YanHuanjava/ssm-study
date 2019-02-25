@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.seecen.dao.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.seecen.pojo.Teacher" >
+    <id column="TNO" property="tno" jdbcType="DECIMAL" />
+    <result column="TNAME" property="tname" jdbcType="VARCHAR" />
+    <result column="TSEX" property="tsex" jdbcType="VARCHAR" />
+    <result column="TBIRTHDAY" property="tbirthday" jdbcType="DATE" />
+    <result column="TPROF" property="tprof" jdbcType="VARCHAR" />
+    <result column="TDEPART" property="tdepart" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TNO, TNAME, TSEX, TBIRTHDAY, TPROF, TDEPART
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.seecen.pojo.TeacherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_TEACHER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_TEACHER
+    where TNO = #{tno,jdbcType=DECIMAL}
+  </select>
+  <select id="findTeacherByPage" parameterType="com.seecen.pojo.Teacher" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from T_TEACHER
+    <where>
+      <if test="tname!=null and tname.length()>0">
+        tname like '%${tname}%'
+      </if>
+      <if test="tbirthday!=null">
+        and tbirthday &gt;= #{tbirthday} and tbirthday &lt; #{tbirthday}+1
+      </if>
+      <if test="tprof!=null and tprof.length()>0">
+        and tprof like '%${tprof}%'
+      </if>
+      <if test="tdepart!=null and tdepart.length()>0">
+        and tdepart like '%${tdepart}%'
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_TEACHER
+    where TNO = #{tno,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.seecen.pojo.TeacherExample" >
+    delete from T_TEACHER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.seecen.pojo.Teacher" >
+    insert into T_TEACHER (TNO, TNAME, TSEX, 
+      TBIRTHDAY, TPROF, TDEPART
+      )
+    values (t_seq.nextval, #{tname,jdbcType=VARCHAR}, #{tsex,jdbcType=VARCHAR},
+      #{tbirthday,jdbcType=DATE}, #{tprof,jdbcType=VARCHAR}, #{tdepart,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.seecen.pojo.Teacher" >
+    insert into T_TEACHER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        TNO,
+      <if test="tname != null" >
+        TNAME,
+      </if>
+      <if test="tsex != null" >
+        TSEX,
+      </if>
+      <if test="tbirthday != null" >
+        TBIRTHDAY,
+      </if>
+      <if test="tprof != null" >
+        TPROF,
+      </if>
+      <if test="tdepart != null" >
+        TDEPART,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        t_seq.nextval,
+      <if test="tname != null" >
+        #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tsex != null" >
+        #{tsex,jdbcType=VARCHAR},
+      </if>
+      <if test="tbirthday != null" >
+        #{tbirthday,jdbcType=DATE},
+      </if>
+      <if test="tprof != null" >
+        #{tprof,jdbcType=VARCHAR},
+      </if>
+      <if test="tdepart != null" >
+        #{tdepart,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.seecen.pojo.TeacherExample" resultType="java.lang.Integer" >
+    select count(*) from T_TEACHER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_TEACHER
+    <set >
+      <if test="record.tno != null" >
+        TNO = #{record.tno,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tname != null" >
+        TNAME = #{record.tname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tsex != null" >
+        TSEX = #{record.tsex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbirthday != null" >
+        TBIRTHDAY = #{record.tbirthday,jdbcType=DATE},
+      </if>
+      <if test="record.tprof != null" >
+        TPROF = #{record.tprof,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tdepart != null" >
+        TDEPART = #{record.tdepart,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_TEACHER
+    set TNO = #{record.tno,jdbcType=DECIMAL},
+      TNAME = #{record.tname,jdbcType=VARCHAR},
+      TSEX = #{record.tsex,jdbcType=VARCHAR},
+      TBIRTHDAY = #{record.tbirthday,jdbcType=DATE},
+      TPROF = #{record.tprof,jdbcType=VARCHAR},
+      TDEPART = #{record.tdepart,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seecen.pojo.Teacher" >
+    update T_TEACHER
+    <set >
+      <if test="tname != null" >
+        TNAME = #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tsex != null" >
+        TSEX = #{tsex,jdbcType=VARCHAR},
+      </if>
+      <if test="tbirthday != null" >
+        TBIRTHDAY = #{tbirthday,jdbcType=DATE},
+      </if>
+      <if test="tprof != null" >
+        TPROF = #{tprof,jdbcType=VARCHAR},
+      </if>
+      <if test="tdepart != null" >
+        TDEPART = #{tdepart,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TNO = #{tno,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.seecen.pojo.Teacher" >
+    update T_TEACHER
+    set TNAME = #{tname,jdbcType=VARCHAR},
+      TSEX = #{tsex,jdbcType=VARCHAR},
+      TBIRTHDAY = #{tbirthday,jdbcType=DATE},
+      TPROF = #{tprof,jdbcType=VARCHAR},
+      TDEPART = #{tdepart,jdbcType=VARCHAR}
+    where TNO = #{tno,jdbcType=DECIMAL}
+  </update>
+</mapper>

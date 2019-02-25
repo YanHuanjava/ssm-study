@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="test" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 true:是 false:否 -->
+            <property name="suppressDate" value="true" />
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+                        connectionURL="jdbc:oracle:thin:@localhost:1521:xe"
+                        userId="sc1809" password="sc1809">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <!-- 强制使用 java.math.BigDecimal 类 -->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置 -->
+        <javaModelGenerator targetPackage="com.seecen.pojo"
+                            targetProject="gen">
+            <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置 -->
+        <sqlMapGenerator targetPackage="resources.mapper"
+                         targetProject="gen">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.seecen.dao"
+                             targetProject="gen">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 要生成哪些表 -->
+        <table  tableName="T_SYS_LOG" schema="sc1809" domainObjectName="Syslog"
+                enableCountByExample="true" enableUpdateByExample="true"
+                enableDeleteByExample="true" enableSelectByExample="true">
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>
+        <!--<table  tableName="t_roles" schema="sc1809" domainObjectName="Role"-->
+                <!--enableCountByExample="true" enableUpdateByExample="true"-->
+                <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+            <!--<property name="ignoreQualifiersAtRuntime" value="true"/>-->
+        <!--</table>-->
+        <!--<table  tableName="t_modules" schema="sc1809" domainObjectName="Module"-->
+                <!--enableCountByExample="true" enableUpdateByExample="true"-->
+                <!--enableDeleteByExample="true" enableSelectByExample="true">-->
+            <!--<property name="ignoreQualifiersAtRuntime" value="true"/>-->
+        <!--</table>-->
+        <!--<table  tableName="Emp" domainObjectName="Emp" schema="sc" >-->
+            <!-- 去除表名前面的用户名，默认值为false-->
+            <!--<property name="ignoreQualifiersAtRuntime" value="true"/>-->
+        <!--</table>-->
+    </context>
+</generatorConfiguration>

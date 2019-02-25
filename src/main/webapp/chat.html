@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <style>
+        .main{
+            width: 400px;
+            height: 400px;
+            margin:0px auto;
+        }
+        #msg{
+            height: 300px;
+            width: 100%;
+            border: 1px solid black;
+            overflow-y:scroll;
+        }
+    </style>
+    <script>
+        function sendMsg(msg) {
+            $("#msg").append("<br>"+msg);
+        }
+        $(function () {
+            var websocket = new WebSocket("ws://localhost:9091/sc");
+            if (websocket!=null){
+                websocket.onopen = function (event) {
+                    console.log("连接服务器成功");
+                    sendMsg("加入聊天室成功");
+                };
+                //当服务器端推送消息的时候，会调用onmessage回调方法
+                websocket.onmessage = function (event) {
+                    console.log(event);
+                    sendMsg(event.data);
+                };
+                //关闭连接
+                websocket.onclose = function (p1) {
+                    sendMsg(p1+"退出群聊");
+                };
+                //异常
+                websocket.onerror = function (event) {
+                    sendMsg("连接异常！");
+                };
+                $("#sendBtn").click(function () {
+                    var msg = $("#content").val();
+                    if (msg){
+                        var toUser = $("#toUser").val();
+                        var msgObj = { //默认群聊
+                            type:0,
+                            msg:msg
+                        };
+                        if (toUser){ //私聊
+                            msgObj.type=1;
+                            msgObj.toUser = toUser;
+                        }
+                        //把对象转换成字符串
+                        var jsonStr = JSON.stringify(msgObj);
+                        console.log(jsonStr);
+                        //把文本内容推送至服务器端
+                        websocket.send(jsonStr);
+                    }else {
+                        alert("请输入消息内容")
+                    }
+                    $("#content").val("");
+                });
+            }
+        })
+    </script>
+</head>
+<body>
+<div class="main">
+    <div id="msg"></div>
+    <div>
+        <select name="" id="toUser">
+            <option value="">所有人</option>
+            <option value="张三">张三</option>
+            <option value="李四">李四</option>
+            <option value="王二">王二</option>
+        </select>
+        <input type="text" id="content">
+        <input type="button" id="sendBtn" value="发送信息">
+    </div>
+</div>
+</body>
+</html>
