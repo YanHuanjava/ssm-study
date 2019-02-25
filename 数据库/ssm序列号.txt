@@ -1,0 +1,163 @@
+---------------------------------------------------------
+-- Export file for user SC1809                         --
+-- Created by Administrator on 2019/2/25 –«∆⁄“ª, 13:01:26 --
+---------------------------------------------------------
+
+spool ssm–Ú¡–∫≈.log
+
+prompt
+prompt Creating sequence DEMO_CUST_SEQ
+prompt ===============================
+prompt
+create sequence SC1809.DEMO_CUST_SEQ
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 21
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence DEMO_ORDER_ITEMS_SEQ
+prompt ======================================
+prompt
+create sequence SC1809.DEMO_ORDER_ITEMS_SEQ
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 61
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence DEMO_ORD_SEQ
+prompt ==============================
+prompt
+create sequence SC1809.DEMO_ORD_SEQ
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 11
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence DEMO_PROD_SEQ
+prompt ===============================
+prompt
+create sequence SC1809.DEMO_PROD_SEQ
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 21
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence DEMO_USERS_SEQ
+prompt ================================
+prompt
+create sequence SC1809.DEMO_USERS_SEQ
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 21
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence SEQ_DEPT
+prompt ==========================
+prompt
+create sequence SC1809.SEQ_DEPT
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 21
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence SEQ_MODULE
+prompt ============================
+prompt
+create sequence SC1809.SEQ_MODULE
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 101
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence SEQ_STUDENT
+prompt =============================
+prompt
+create sequence SC1809.SEQ_STUDENT
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 21
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence SEQ_TEACHER
+prompt =============================
+prompt
+create sequence SC1809.SEQ_TEACHER
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 81
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence SEQ_USER_INFO
+prompt ===============================
+prompt
+create sequence SC1809.SEQ_USER_INFO
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 141
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence T_ROLES_SEQ
+prompt =============================
+prompt
+create sequence SC1809.T_ROLES_SEQ
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 41
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence T_SEQ
+prompt =======================
+prompt
+create sequence SC1809.T_SEQ
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 61
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence T_SYS_LOG1
+prompt ============================
+prompt
+create sequence SC1809.T_SYS_LOG1
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 81
+increment by 1
+cache 20;
+
+prompt
+prompt Creating sequence T_USERS_SEQ
+prompt =============================
+prompt
+create sequence SC1809.T_USERS_SEQ
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 61
+increment by 1
+cache 20;
+
+
+spool off
